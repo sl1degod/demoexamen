@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sl1degod.demoexamen.controllers.AuthController">
+  <children>
+    <Label layoutX="326.0" layoutY="84.0" text="Авторизация">
+      <font>
+        <Font name="Comic Sans MS" size="24.0" />
+      </font></Label>
+    <Label fx:id="labelError" alignment="CENTER" layoutX="250.0" layoutY="323.0" prefHeight="17.0" prefWidth="202.0" textAlignment="CENTER" textFill="RED" />
+
+    <TextField fx:id="textFieldLogin" layoutX="304.0" layoutY="181.0" prefHeight="35.0" prefWidth="193.0" stylesheets="@style.css">
+      <styleClass>
+        <String fx:value="border" />
+        <String fx:value="background" />
+      </styleClass></TextField>
+    <Button fx:id="buttonSignIn" layoutX="304.0" layoutY="346.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="193.0" text="Войти">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font></Button>
+    <PasswordField fx:id="textFieldPassword" layoutX="304.0" layoutY="250.0" prefHeight="35.0" prefWidth="193.0" stylesheets="@style.css">
+      <styleClass>
+        <String fx:value="background" />
+        <String fx:value="border" />
+      </styleClass>
+    </PasswordField>
+  </children>
+</AnchorPane>
