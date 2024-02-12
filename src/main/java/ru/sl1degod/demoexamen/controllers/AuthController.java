@@ -74,10 +74,8 @@ public class AuthController {
             if (State.getInstance().getRole().equals("Сотрудник")) {
                 new App().openNewScene(rootPane, "/ru/sl1degod/demoexamen/main-worker.fxml", "Главный экран");
             } else {
-                new App().openNewScene(rootPane, "/ru/sl1degod/demoexamen/create-app-form.fxml", "Главный экран");
+                new App().openNewScene(rootPane, "/ru/sl1degod/demoexamen/menu-client.fxml", "Главный экран");
             }
-            System.out.println(State.getInstance().getRole());
-
         }
     }
 

@@ -9,8 +9,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import ru.sl1degod.demoexamen.database.DataBase;
 import ru.sl1degod.demoexamen.models.App_form;
+import ru.sl1degod.demoexamen.utils.State;
 
-public class Main {
+public class UserAppFormView {
 
     @FXML
     private ResourceBundle resources;
@@ -20,6 +21,9 @@ public class Main {
 
     @FXML
     private TableColumn<?, ?> columnCause;
+
+    @FXML
+    private TableColumn<?, ?> columnComments;
 
     @FXML
     private TableColumn<?, ?> columnDate;
@@ -35,9 +39,6 @@ public class Main {
 
     @FXML
     private TableColumn<?, ?> columnPriority;
-
-    @FXML
-    private TableColumn<?, ?> columnComments;
 
     @FXML
     private TableColumn<?, ?> columnStatus;
@@ -60,30 +61,7 @@ public class Main {
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("status_app"));
         columnComments.setCellValueFactory(new PropertyValueFactory<>("comments"));
         columnPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
-        tableView.setItems(dataBase.getApp_form());
-
-//        if (Variables.ROLE_USER.equals("admin")) {
-//            tableView.setOnMouseClicked(e -> {
-//                if (e.getClickCount() == 2) {
-//                    User user = tableView.getSelectionModel().getSelectedItem();
-//
-//                    try {
-//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/exam/update.fxml"));
-//                        Parent parent = loader.load();
-//                        Update update = loader.getController();
-//                        update.setData(user.getLogin(), user.getPassword(), user.getRole(), user.getStatus(), user.getId());
-//                        Stage stage = new Stage();
-//                        stage.initModality(Modality.APPLICATION_MODAL);
-//                        stage.setScene(new Scene(parent));
-//                        stage.setTitle("Редактирование пользователя");
-//                        stage.showAndWait();
-//                    } catch (IOException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
-//                }
-//            });
-//        }
+        tableView.setItems(dataBase.getUserApp_form(State.getInstance().getUser_id()));
     }
 
 }
-

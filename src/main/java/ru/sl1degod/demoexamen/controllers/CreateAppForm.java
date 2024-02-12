@@ -67,8 +67,7 @@ public class CreateAppForm {
             String desc = descTextField.getText();
             String user_id = State.getInstance().getUser_id();
             dataBase.createApp_form(equip, fault, desc, user_id);
-            new App().openNewScene(root, "/ru/sl1degod/demoexamen/main-worker.fxml", "Главный экран");
-
+            new App().openNewScene(root, "/ru/sl1degod/demoexamen/user-app-form-view.fxml", "Главный экран");
         });
     }
 

@@ -7,31 +7,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sl1degod.demoexamen.controllers.CreateAppForm">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sl1degod.demoexamen.controllers.CreateAppForm">
    <children>
-      <Label layoutX="306.0" layoutY="42.0" text="Создание заявки">
+      <Label layoutX="356.0" layoutY="79.0" text="Создание заявки">
          <font>
             <Font name="Comic Sans MS" size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="equipComboBox" layoutX="326.0" layoutY="151.0" prefWidth="150.0" />
-      <ComboBox fx:id="typeofcauseComboBox" layoutX="324.0" layoutY="245.0" prefWidth="150.0" />
-      <TextField fx:id="descTextField" layoutX="325.0" layoutY="333.0" />
-      <Label layoutX="296.0" layoutY="103.0" text="Выберите оборудование">
+      <ComboBox fx:id="equipComboBox" layoutX="376.0" layoutY="188.0" prefWidth="150.0" />
+      <ComboBox fx:id="typeofcauseComboBox" layoutX="374.0" layoutY="282.0" prefWidth="150.0" />
+      <TextField fx:id="descTextField" layoutX="337.0" layoutY="374.0" />
+      <Label layoutX="346.0" layoutY="140.0" text="Выберите оборудование">
          <font>
             <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="272.0" layoutY="204.0" text="Выберите тип неисправности">
+      <Label layoutX="322.0" layoutY="241.0" text="Выберите тип неисправности">
          <font>
             <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="314.0" layoutY="290.0" text="Опишите проблему">
+      <Label layoutX="364.0" layoutY="327.0" text="Опишите проблему">
          <font>
             <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="createApp_formButton" layoutX="370.0" layoutY="395.0" mnemonicParsing="false" text="Создать" />
+      <Button fx:id="createApp_formButton" layoutX="409.0" layoutY="433.0" mnemonicParsing="false" text="Создать" />
    </children>
 </AnchorPane>

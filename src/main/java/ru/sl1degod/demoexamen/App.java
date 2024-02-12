@@ -16,7 +16,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         StageModel.setMyStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("authorization.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         SceneModel.setMyScene(scene);
         stage.setTitle("Способ входа");
         stage.setScene(scene);
@@ -27,11 +27,11 @@ public class App extends Application {
         try {
             AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(window)));
             root.getChildren().setAll(anchorPane);
-            StageModel.getMyStage().setTitle(title);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     public static void main(String[] args) {
         launch();

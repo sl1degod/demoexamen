@@ -1,6 +1,7 @@
 package ru.sl1degod.demoexamen.utils;
 
 import javafx.collections.ObservableList;
+import ru.sl1degod.demoexamen.models.User;
 
 import java.util.List;
 
@@ -11,7 +12,15 @@ public class State {
 
     public ObservableList<String> equipNames;
     public ObservableList<String> faultNames;
+    public ObservableList<String> users;
 
+    public ObservableList<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ObservableList<String> users) {
+        this.users = users;
+    }
 
     public String getRole() {
         return role;

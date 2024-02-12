@@ -10,7 +10,9 @@ public class App_form {
     private String comments;
     private String priority;
 
-    public App_form(String id, String equipments, String type_of_fault, String date_create, String description, String status_app, String comments, String priority) {
+    private String user_id;
+
+    public App_form(String id, String equipments, String type_of_fault, String date_create, String description, String status_app, String comments, String priority, String user_id) {
         this.id = id;
         this.equipments = equipments;
         this.type_of_fault = type_of_fault;
@@ -19,6 +21,7 @@ public class App_form {
         this.status_app = status_app;
         this.comments = comments;
         this.priority = priority;
+        this.user_id = user_id;
     }
 
     public String getId() {
@@ -83,5 +86,13 @@ public class App_form {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

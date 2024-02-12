@@ -47,6 +47,7 @@ create table status_repair (
 
 create table app_form (
 	id serial primary key,
+	users_id int REFERENCES users (id),
 	equip_id int REFERENCES equipments (id),
 	fault_id int REFERENCES type_of_fault (id),
 	date_create date not null,
@@ -135,13 +136,13 @@ values
 ('В работе'),
 ('Не выполнено');
 
-insert into app_form (equip_id, fault_id, date_create, description, status_id, comments, priority_id)
+insert into app_form (users_id, equip_id, fault_id, date_create, description, status_id, comments, priority_id)
 values
-(1, 1, now(), '1212', 1, '1212', 1),
-(2, 2, now(), '1212', 2, '1212', 1),
-(3, 3, now(), '1212', 3, '1212', 2),
-(4, 4, now(), '1212', 2, '1212', 1),
-(5, 5, now(), '1212', 1, '1212', 2);
+(1, 1, 1, now(), '1212', 1, '1212', 1),
+(2, 2, 2, now(), '1212', 2, '1212', 1),
+(3, 3, 3, now(), '1212', 3, '1212', 2),
+(4, 4, 4, now(), '1212', 2, '1212', 1),
+(5, 5, 5, now(), '1212', 1, '1212', 2);
 
 insert into repair (app_id, user_id, time_repair, price, cause_id, assistance, status_repair_id, rating)
 values

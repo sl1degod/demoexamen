@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sl1degod.demoexamen.controllers.MenuClient">
+   <children>
+      <Label layoutX="374.0" layoutY="103.0" text="Приветствие">
+         <font>
+            <Font name="Comic Sans MS" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="seeMyAppFormButton" layoutX="255.0" layoutY="325.0" mnemonicParsing="false" text="Просмотр моих заявок" />
+      <Button fx:id="createAppFormButton" layoutX="500.0" layoutY="325.0" mnemonicParsing="false" text="Создать заявку" />
+      <Label fx:id="labelFio" alignment="CENTER" layoutX="260.0" layoutY="208.0" prefHeight="79.0" prefWidth="381.0" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Comic Sans MS" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
