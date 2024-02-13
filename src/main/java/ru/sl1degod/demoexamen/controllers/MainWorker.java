@@ -1,14 +1,23 @@
 package ru.sl1degod.demoexamen.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import ru.sl1degod.demoexamen.database.DataBase;
 import ru.sl1degod.demoexamen.models.App_form;
+import ru.sl1degod.demoexamen.models.User;
+import ru.sl1degod.demoexamen.utils.State;
 
 public class MainWorker {
 
@@ -46,7 +55,13 @@ public class MainWorker {
     private TableColumn<?, ?> columnUser_id;
 
     @FXML
+    private Label startRepairLabel;
+
+    @FXML
     private AnchorPane rootPane;
+
+    @FXML
+    private Label updateLabel;
 
     @FXML
     private TableView<App_form> tableView;
@@ -55,6 +70,13 @@ public class MainWorker {
 
     @FXML
     void initialize() {
+        setData();
+        updateLabel.setOnMouseClicked(e -> {
+            tableView.setItems(dataBase.getApp_form());
+        });
+    }
+
+    private void setData() {
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnEquip.setCellValueFactory(new PropertyValueFactory<>("equipments"));
         columnCause.setCellValueFactory(new PropertyValueFactory<>("type_of_fault"));
@@ -66,27 +88,27 @@ public class MainWorker {
         columnUser_id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
         tableView.setItems(dataBase.getApp_form());
 
-//        if (Variables.ROLE_USER.equals("admin")) {
-//            tableView.setOnMouseClicked(e -> {
-//                if (e.getClickCount() == 2) {
-//                    User user = tableView.getSelectionModel().getSelectedItem();
-//
-//                    try {
-//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/exam/update.fxml"));
-//                        Parent parent = loader.load();
-//                        Update update = loader.getController();
-//                        update.setData(user.getLogin(), user.getPassword(), user.getRole(), user.getStatus(), user.getId());
-//                        Stage stage = new Stage();
-//                        stage.initModality(Modality.APPLICATION_MODAL);
-//                        stage.setScene(new Scene(parent));
-//                        stage.setTitle("Редактирование пользователя");
-//                        stage.showAndWait();
-//                    } catch (IOException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
-//                }
-//            });
-//        }
+        if (State.getInstance().getRole().equals("Сотрудник")) {
+            tableView.setOnMouseClicked(e -> {
+                if (e.getClickCount() == 2) {
+                    App_form appForm = tableView.getSelectionModel().getSelectedItem();
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ru/sl1degod/demoexamen/app-form-update.fxml"));
+                        Parent parent = loader.load();
+                        UpdateAppForm update = loader.getController();
+                        update.setData(appForm.getDescription(), appForm.getComments(), appForm.getId(), appForm.getUser_id());
+                        System.out.println(appForm.getId());
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.setScene(new Scene(parent));
+                        stage.setTitle("Редактирование заявки");
+                        stage.showAndWait();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            });
+        }
     }
 
 }

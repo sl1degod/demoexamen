@@ -47,7 +47,6 @@ public class CreateAppForm {
         equipComboBox.setItems(State.getInstance().equipNames);
         typeofcauseComboBox.setItems(State.getInstance().faultNames);
 
-
         equipComboBox.setOnAction(e -> {
             equipSelectedId = equipComboBox.getSelectionModel().getSelectedIndex() + 1;
             System.out.println(equipSelectedId);
@@ -57,9 +56,6 @@ public class CreateAppForm {
             faultSelectedId = typeofcauseComboBox.getSelectionModel().getSelectedIndex() + 1;
             System.out.println(faultSelectedId);
         });
-
-
-
 
         createApp_formButton.setOnAction(e -> {
             String equip = String.valueOf(equipSelectedId);

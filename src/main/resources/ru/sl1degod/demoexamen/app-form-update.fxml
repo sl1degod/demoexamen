@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: aliceblue;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sl1degod.demoexamen.controllers.UpdateAppForm">
+   <children>
+      <Label layoutX="136.0" layoutY="35.0" text="Редактирование заявки">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font></Label>
+      <Button fx:id="buttonSave" focusTraversable="false" layoutX="317.0" layoutY="383.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="102.0" text="Сохранить" />
+      <Label fx:id="ErrorLabel" alignment="CENTER" layoutX="189.0" layoutY="270.0" prefHeight="34.0" prefWidth="145.0" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <VBox layoutX="103.0" layoutY="129.0" prefHeight="210.0" prefWidth="173.0" spacing="35.0">
+         <children>
+            <Label text="Этап выполнения">
+               <font>
+                  <Font name="Serif Regular" size="18.0" />
+               </font></Label>
+            <Label text="Описание проблемы">
+               <font>
+                  <Font name="Serif Regular" size="18.0" />
+               </font></Label>
+            <Label layoutX="10.0" layoutY="65.0" text="Комментарии">
+               <font>
+                  <Font name="Serif Regular" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Ответственный">
+               <font>
+                  <Font name="Serif Regular" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="348.0" layoutY="129.0" prefHeight="210.0" prefWidth="158.0" spacing="20.0">
+         <children>
+            <ComboBox fx:id="statusComboBox" prefHeight="25.0" prefWidth="227.0" promptText="Выберите этап" />
+            <TextArea fx:id="descTextField" prefHeight="28.0" prefWidth="158.0" />
+            <TextArea fx:id="commentsTextField" layoutX="10.0" layoutY="55.0" prefHeight="24.0" prefWidth="226.0" />
+            <ComboBox fx:id="choiceBoxFIO" prefHeight="27.0" prefWidth="158.0" promptText="Выберите ответственного" />
+         </children>
+      </VBox>
+      <Button fx:id="buttonDelete" layoutX="181.0" layoutY="384.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0" text="Удалить" />
+   </children>
+</AnchorPane>

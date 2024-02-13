@@ -10,9 +10,47 @@ public class State {
 
     public String user_id;
 
+    public String admin_id;
+
+    public ObservableList<String> admins;
+    public ObservableList<String> status_app_form;
+    public ObservableList<String> status_repair;
+
     public ObservableList<String> equipNames;
     public ObservableList<String> faultNames;
     public ObservableList<String> users;
+
+    public ObservableList<String> getStatus_repair() {
+        return status_repair;
+    }
+
+    public void setStatus_repair(ObservableList<String> status_repair) {
+        this.status_repair = status_repair;
+    }
+
+    public String getAdmin_id() {
+        return admin_id;
+    }
+
+    public void setAdmin_id(String admin_id) {
+        this.admin_id = admin_id;
+    }
+
+    public ObservableList<String> getStatus_app_form() {
+        return status_app_form;
+    }
+
+    public void setStatus_app_form(ObservableList<String> status_app_form) {
+        this.status_app_form = status_app_form;
+    }
+
+    public ObservableList<String> getAdmins() {
+        return admins;
+    }
+
+    public void setAdmins(ObservableList<String> admins) {
+        this.admins = admins;
+    }
 
     public ObservableList<String> getUsers() {
         return users;

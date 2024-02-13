@@ -63,7 +63,7 @@ public class DataBase {
     public ObservableList<App_form> getApp_form() {
         ObservableList<App_form> appForms = FXCollections.observableArrayList();
         try {
-            ResultSet resultSet = connect_to_db().createStatement().executeQuery("SELECT app_form.id as id, equipments.name as equipments, type_of_fault.name as type_of_fault, app_form.date_create, app_form.description as description, status_app.name as status_app, app_form.comments, priority.name as priority, app_form.users_id FROM app_form JOIN status_app ON status_app.id = app_form.status_id JOIN equipments ON equipments.id = app_form.equip_id JOIN type_of_fault ON type_of_fault.id = app_form.fault_id JOIN priority ON priority.id = app_form.priority_id;");
+            ResultSet resultSet = connect_to_db().createStatement().executeQuery("SELECT app_form.id as id, equipments.name as equipments, type_of_fault.name as type_of_fault, app_form.date_create, app_form.description as description, status_app.name as status_app, app_form.comments, priority.name as priority, app_form.users_id FROM app_form JOIN status_app ON status_app.id = app_form.status_id JOIN equipments ON equipments.id = app_form.equip_id JOIN type_of_fault ON type_of_fault.id = app_form.fault_id JOIN priority ON priority.id = app_form.priority_id order by app_form.id desc;");
             while (resultSet.next()) {
                 appForms.add(new App_form(
                         resultSet.getString("id"),
@@ -81,6 +81,52 @@ public class DataBase {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return appForms;
+        }
+    }
+
+    public void getStatusRepairData() {
+        ObservableList<String> status_repair = FXCollections.observableArrayList();
+        try {
+            String query = String.format("select * from status_repair");
+            Statement statement = connect_to_db().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                status_repair.add(resultSet.getString("name"));
+            }
+            State.getInstance().setStatus_repair(status_repair);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void getStatusApp_form() {
+        ObservableList<String> status_repair = FXCollections.observableArrayList();
+        try {
+            String query = String.format("select * from status_app");
+            Statement statement = connect_to_db().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                status_repair.add(resultSet.getString("name"));
+            }
+            State.getInstance().setStatus_app_form(status_repair);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void getAdminsData() {
+        ObservableList<String> admins = FXCollections.observableArrayList();
+        try {
+            String query = String.format("select concat(firstname, ' ', LEFT(secondname, 1), '. ', LEFT(lastname, 1), '.') as FIO from users where roles_id = 2");
+            Statement statement = connect_to_db().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                admins.add(resultSet.getString("fio"));
+                State.getInstance().setAdmin_id("id");
+            }
+            State.getInstance().setAdmins(admins);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -102,6 +148,7 @@ public class DataBase {
                         resultSet.getString("priority"),
                         resultSet.getString("users_id")
                 ));
+
             }
             return appForms;
         } catch (SQLException e) {
@@ -113,6 +160,28 @@ public class DataBase {
     public void createApp_form(String equip, String typeOfFault, String desc, String user_id) {
         try {
             String query = String.format("insert into app_form (users_id, equip_id, fault_id, date_create, description, status_id, comments, priority_id) values ('%s','%s', '%s', now(), '%s', 1, '', 2)", user_id, equip, typeOfFault, desc, user_id);
+            Statement statement = connect_to_db().createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Data created");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateApp_form(String statusApp, String desc, String comments, String id) {
+        try {
+            String query = String.format("update app_form set status_id = '%s', comments = '%s', description = '%s' where id = '%s'", statusApp, comments, desc, id);
+            Statement statement = connect_to_db().createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Data created");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void createRepair(String app_id, String admin_id, Integer time_repair, String price, String cause_id, String assistance, String status_repair_id, String rating) {
+        try {
+            String query = String.format("insert into repair (app_id, user_id, time_repair, price, cause_id, assistance, status_repair_id, rating) values ('%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')", app_id, admin_id, time_repair, price, cause_id, assistance, status_repair_id, rating);
             Statement statement = connect_to_db().createStatement();
             statement.executeUpdate(query);
             System.out.println("Data created");
