@@ -33,6 +33,9 @@ public class MenuClient {
     @FXML
     private Button seeMyAppFormButton;
 
+    @FXML
+    private Button seeMyRepair;
+
     DataBase dataBase = new DataBase();
 
     @FXML
@@ -44,6 +47,9 @@ public class MenuClient {
         });
         seeMyAppFormButton.setOnAction(e -> {
             new App().openNewScene(root, "/ru/sl1degod/demoexamen/user-app-form-view.fxml", "Просмотр заявок");
+        });
+        seeMyRepair.setOnAction(e -> {
+            new App().openNewScene(root, "/ru/sl1degod/demoexamen/user-repair-view.fxml", "Просмотр заявок на ремонт");
         });
     }
 

@@ -4,10 +4,7 @@ import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.postgresql.Driver;
-import ru.sl1degod.demoexamen.models.App_form;
-import ru.sl1degod.demoexamen.models.Equipments;
-import ru.sl1degod.demoexamen.models.TypeOfFault;
-import ru.sl1degod.demoexamen.models.User;
+import ru.sl1degod.demoexamen.models.*;
 import ru.sl1degod.demoexamen.utils.State;
 
 public class DataBase {
@@ -84,6 +81,21 @@ public class DataBase {
         }
     }
 
+    public void getCauses() {
+        ObservableList<String> causes = FXCollections.observableArrayList();
+        try {
+            String query = String.format("select * from cause_of_fault");
+            Statement statement = connect_to_db().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                causes.add(resultSet.getString("name"));
+            }
+            State.getInstance().setCauses(causes);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void getStatusRepairData() {
         ObservableList<String> status_repair = FXCollections.observableArrayList();
         try {
@@ -122,7 +134,6 @@ public class DataBase {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 admins.add(resultSet.getString("fio"));
-                State.getInstance().setAdmin_id("id");
             }
             State.getInstance().setAdmins(admins);
         } catch (SQLException e) {
@@ -154,6 +165,31 @@ public class DataBase {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return appForms;
+        }
+    }
+
+    public ObservableList<Repair> getRepairs(String id) {
+        ObservableList<Repair> repairs = FXCollections.observableArrayList();
+        try {
+            String query = String.format("SELECT repair.app_id as app_form_id, repair.user_id as admin, repair.time_repair as time, repair.price as price, cause_of_fault.name as cause, repair.assistance as assistance, status_repair.name as status_repair, repair.rating as rating FROM repair JOIN cause_of_fault ON cause_of_fault.id = repair.cause_id JOIN status_repair ON status_repair.id = repair.status_repair_id JOIN app_form ON app_form.id = repair.app_id JOIN users ON users.id = app_form.users_id where app_form.users_id = '%s'", id);
+            Statement statement = connect_to_db().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                repairs.add(new Repair(
+                        resultSet.getString("app_form_id"),
+                        resultSet.getString("admin"),
+                        resultSet.getString("time"),
+                        resultSet.getString("price"),
+                        resultSet.getString("cause"),
+                        resultSet.getString("assistance"),
+                        resultSet.getString("status_repair"),
+                        resultSet.getString("rating")
+                ));
+            }
+            return repairs;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return repairs;
         }
     }
 

@@ -52,6 +52,7 @@ public class UpdateAppForm {
     DataBase dataBase = new DataBase();
 
     int statusSelectedId = 0;
+    int fioSelectedId = 0;
 
     @FXML
     void initialize() {
@@ -63,9 +64,13 @@ public class UpdateAppForm {
         statusComboBox.setOnAction(e -> {
             statusSelectedId = statusComboBox.getSelectionModel().getSelectedIndex() + 1;
         });
+        choiceBoxFIO.setOnAction(e -> {
+            fioSelectedId = choiceBoxFIO.getSelectionModel().getSelectedIndex() + 1;
+        });
 
         buttonSave.setOnAction(e -> {
             dataBase.updateApp_form(String.valueOf(statusSelectedId), descTextField.getText(), commentsTextField.getText(), form_id);
+            State.getInstance().setAdmin_id(String.valueOf(fioSelectedId));
             buttonSave.getScene().getWindow().hide();
         });
     }

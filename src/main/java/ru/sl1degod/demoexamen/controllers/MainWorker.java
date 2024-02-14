@@ -109,7 +109,28 @@ public class MainWorker {
                 }
             });
         }
+
+        startRepairLabel.setOnMouseClicked(e -> {
+            if (State.getInstance().getRole().equals("Сотрудник")) {
+//                    if (e.getClickCount() == 2) {
+                        App_form appForm = tableView.getSelectionModel().getSelectedItem();
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ru/sl1degod/demoexamen/repair-update.fxml"));
+                            Parent parent = loader.load();
+                            RepairUpdate repairUpdate = loader.getController();
+                            repairUpdate.setData(appForm.getId());
+                            System.out.println(appForm.getId());
+                            Stage stage = new Stage();
+                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.setScene(new Scene(parent));
+                            stage.setTitle("Редактирование заявки");
+                            stage.showAndWait();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
+        };
     }
 
-}
 

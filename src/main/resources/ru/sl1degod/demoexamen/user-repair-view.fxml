@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="910.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sl1degod.demoexamen.controllers.UserRepairView">
+    <children>
+        <TableView fx:id="tableView" layoutY="86.0" prefHeight="515.0" prefWidth="910.0">
+            <columns>
+                <TableColumn fx:id="columnApp_id" prefWidth="67.0" text="Заявка" />
+                <TableColumn fx:id="columnUser_id" prefWidth="99.0" text="Исполнитель" />
+                <TableColumn fx:id="columnTime_repair" prefWidth="91.0" text="Время" />
+                <TableColumn fx:id="columnPrice" prefWidth="74.0" text="Цена" />
+                <TableColumn fx:id="columnCause_id" prefWidth="190.0" text="Тип неисправности" />
+                <TableColumn fx:id="columnAssistance" prefWidth="137.0" text="Оказанная помощь" />
+                <TableColumn fx:id="columnStatus_repair_id" prefWidth="137.0" text="Статус ремонта" />
+                <TableColumn fx:id="columnRating" prefWidth="114.0" text="Оценка" />
+            </columns>
+        </TableView>
+        <Label layoutX="305.0" layoutY="33.0" prefHeight="35.0" prefWidth="301.0" text="Список заявок на ремонт">
+            <font>
+                <Font name="Comic Sans MS" size="24.0" />
+            </font></Label>
+    </children>
+</AnchorPane>

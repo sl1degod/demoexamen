@@ -19,6 +19,15 @@ public class State {
     public ObservableList<String> equipNames;
     public ObservableList<String> faultNames;
     public ObservableList<String> users;
+    public ObservableList<String> causes;
+
+    public ObservableList<String> getCauses() {
+        return causes;
+    }
+
+    public void setCauses(ObservableList<String> causes) {
+        this.causes = causes;
+    }
 
     public ObservableList<String> getStatus_repair() {
         return status_repair;
