@@ -3,6 +3,7 @@ import java.sql.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import org.postgresql.Driver;
 import ru.sl1degod.demoexamen.models.*;
 import ru.sl1degod.demoexamen.utils.State;
@@ -141,6 +142,21 @@ public class DataBase {
         }
     }
 
+    public void getMaterials() {
+        ObservableList<String> materials = FXCollections.observableArrayList();
+        try {
+            String query = String.format("select * from materials");
+            Statement statement = connect_to_db().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                materials.add(resultSet.getString("name"));
+            }
+            State.getInstance().setMaterials(materials);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public ObservableList<App_form> getUserApp_form(String id) {
         ObservableList<App_form> appForms = FXCollections.observableArrayList();
         try {
@@ -217,9 +233,13 @@ public class DataBase {
 
     public void createRepair(String app_id, String admin_id, Integer time_repair, String price, String cause_id, String assistance, String status_repair_id, String rating) {
         try {
-            String query = String.format("insert into repair (app_id, user_id, time_repair, price, cause_id, assistance, status_repair_id, rating) values ('%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')", app_id, admin_id, time_repair, price, cause_id, assistance, status_repair_id, rating);
+            String query = String.format("insert into repair (app_id, user_id, time_repair, price, cause_id, assistance, status_repair_id, rating) values ('%s','%s', '%s', '%s', '%s', '%s', '%s', '%s') RETURNING *", app_id, admin_id, time_repair, price, cause_id, assistance, status_repair_id, rating);
             Statement statement = connect_to_db().createStatement();
-            statement.executeUpdate(query);
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+              State.getInstance().setApp_form_id(resultSet.getString("id"));
+                System.out.println(State.getInstance().getApp_form_id());
+            }
             System.out.println("Data created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -289,6 +309,24 @@ public class DataBase {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return typeOfFaults;
+        }
+    }
+
+    public ObservableList<Stats> getStats() {
+        ObservableList<Stats> stats = FXCollections.observableArrayList();
+        try {
+            ResultSet resultSet = connect_to_db().createStatement().executeQuery("select count(app_form.id) as count, avg(repair.time_repair), cause_of_fault.name from app_form, status_app, repair, cause_of_fault where app_form.status_id = 3 and app_form.status_id = status_app.id and repair.app_id = app_form.id and cause_of_fault.id = repair.cause_id group by cause_of_fault.name ORDER BY COUNT(*) DESC LIMIT 1");
+            while (resultSet.next()) {
+                stats.add(new Stats(
+                        resultSet.getString("count"),
+                        resultSet.getString("avg"),
+                        resultSet.getString("name")
+                ));
+            }
+            return stats;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return stats;
         }
     }
 }

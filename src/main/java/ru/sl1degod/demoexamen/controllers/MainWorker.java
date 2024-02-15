@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ru.sl1degod.demoexamen.App;
 import ru.sl1degod.demoexamen.database.DataBase;
 import ru.sl1degod.demoexamen.models.App_form;
 import ru.sl1degod.demoexamen.models.User;
@@ -64,6 +65,9 @@ public class MainWorker {
     private Label updateLabel;
 
     @FXML
+    private Label statsLabel;
+
+    @FXML
     private TableView<App_form> tableView;
 
     DataBase dataBase = new DataBase();
@@ -73,6 +77,9 @@ public class MainWorker {
         setData();
         updateLabel.setOnMouseClicked(e -> {
             tableView.setItems(dataBase.getApp_form());
+        });
+        statsLabel.setOnMouseClicked(e -> {
+            new App().openNewScene(rootPane, "/ru/sl1degod/demoexamen/worker-stats.fxml", "Статистика");
         });
     }
 

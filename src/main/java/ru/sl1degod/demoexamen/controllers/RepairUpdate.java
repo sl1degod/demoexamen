@@ -41,27 +41,44 @@ public class RepairUpdate {
     private ComboBox<String> statusRepairComboBox;
 
     @FXML
-    private TextArea timeTextField;
+    private ComboBox<String> countMaterialComboBox;
 
-    String idUser = "";
+    @FXML
+    private ComboBox<String> materialComboBox;
+
+    @FXML
+    private TextArea timeTextField;
 
     String form_id = "";
 
     int causeSelectedId = 0;
     int statusSelectedId = 0;
     int ratingSelectedId = 0;
+    int materialSelectedId = 0;
+    int countSelectedId = 0;
 
     DataBase dataBase = new DataBase();
 
     @FXML
     void initialize() {
         ObservableList<String> rates = FXCollections.observableArrayList("1", "2", "3", "4", "5");
+        ObservableList<String> countMaterial = FXCollections.observableArrayList("1", "2", "3", "4", "5");
 
         dataBase.getCauses();
         dataBase.getStatusRepairData();
+        dataBase.getMaterials();
         statusRepairComboBox.setItems(State.getInstance().getStatus_repair());
         causeComboBox.setItems(State.getInstance().getCauses());
+        materialComboBox.setItems(State.getInstance().getMaterials());
         rating.setItems(rates);
+        countMaterialComboBox.setItems(countMaterial);
+
+        countMaterialComboBox.setOnAction(e -> {
+            countSelectedId = countMaterialComboBox.getSelectionModel().getSelectedIndex() + 1;
+        });
+        materialComboBox.setOnAction(e -> {
+            materialSelectedId = materialComboBox.getSelectionModel().getSelectedIndex() + 1;
+        });
         causeComboBox.setOnAction(e -> {
             causeSelectedId = causeComboBox.getSelectionModel().getSelectedIndex() + 1;
         });
@@ -73,6 +90,8 @@ public class RepairUpdate {
         });
         buttonSave.setOnAction(e -> {
             dataBase.createRepair(form_id, State.getInstance().getAdmin_id(), Integer.parseInt(timeTextField.getText()), priceTextField.getText(), String.valueOf(causeSelectedId), assTextField.getText(), String.valueOf(statusSelectedId), String.valueOf(ratingSelectedId));
+            State.getInstance().setSelectedMaterial(String.valueOf(materialSelectedId));
+            State.getInstance().setCountMaterial(String.valueOf(countSelectedId));
             buttonSave.getScene().getWindow().hide();
         });
     }

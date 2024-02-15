@@ -69,9 +69,14 @@ public class UpdateAppForm {
         });
 
         buttonSave.setOnAction(e -> {
-            dataBase.updateApp_form(String.valueOf(statusSelectedId), descTextField.getText(), commentsTextField.getText(), form_id);
-            State.getInstance().setAdmin_id(String.valueOf(fioSelectedId));
-            buttonSave.getScene().getWindow().hide();
+            if (choiceBoxFIO.getValue() == null) {
+                System.out.println("error");
+            } else {
+                dataBase.updateApp_form(String.valueOf(statusSelectedId), descTextField.getText(), commentsTextField.getText(), form_id);
+                State.getInstance().setAdmin_id(String.valueOf(fioSelectedId));
+                buttonSave.getScene().getWindow().hide();
+            }
+
         });
     }
 

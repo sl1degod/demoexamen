@@ -11,15 +11,51 @@ public class State {
     public String user_id;
 
     public String admin_id;
+    public String app_form_id;
 
+    public String selectedMaterial;
+    public String countMaterial;
     public ObservableList<String> admins;
     public ObservableList<String> status_app_form;
     public ObservableList<String> status_repair;
+    public ObservableList<String> materials;
 
     public ObservableList<String> equipNames;
     public ObservableList<String> faultNames;
     public ObservableList<String> users;
     public ObservableList<String> causes;
+
+    public String getApp_form_id() {
+        return app_form_id;
+    }
+
+    public void setApp_form_id(String app_form_id) {
+        this.app_form_id = app_form_id;
+    }
+
+    public String getSelectedMaterial() {
+        return selectedMaterial;
+    }
+
+    public void setSelectedMaterial(String selectedMaterial) {
+        this.selectedMaterial = selectedMaterial;
+    }
+
+    public String getCountMaterial() {
+        return countMaterial;
+    }
+
+    public void setCountMaterial(String countMaterial) {
+        this.countMaterial = countMaterial;
+    }
+
+    public ObservableList<String> getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(ObservableList<String> materials) {
+        this.materials = materials;
+    }
 
     public ObservableList<String> getCauses() {
         return causes;
