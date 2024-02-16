@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -52,5 +53,6 @@ public class MenuClient {
             new App().openNewScene(root, "/ru/sl1degod/demoexamen/user-repair-view.fxml", "Просмотр заявок на ремонт");
         });
     }
+
 
 }

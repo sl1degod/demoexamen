@@ -2,14 +2,19 @@ package ru.sl1degod.demoexamen.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -70,20 +75,17 @@ public class MainWorker {
     @FXML
     private TableView<App_form> tableView;
 
+    @FXML
+    private Label searchLabel;
+
+    @FXML
+    private TextField searchTextField;
+
+
     DataBase dataBase = new DataBase();
 
     @FXML
     void initialize() {
-        setData();
-        updateLabel.setOnMouseClicked(e -> {
-            tableView.setItems(dataBase.getApp_form());
-        });
-        statsLabel.setOnMouseClicked(e -> {
-            new App().openNewScene(rootPane, "/ru/sl1degod/demoexamen/worker-stats.fxml", "Статистика");
-        });
-    }
-
-    private void setData() {
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnEquip.setCellValueFactory(new PropertyValueFactory<>("equipments"));
         columnCause.setCellValueFactory(new PropertyValueFactory<>("type_of_fault"));
@@ -94,6 +96,43 @@ public class MainWorker {
         columnPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
         columnUser_id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
         tableView.setItems(dataBase.getApp_form());
+        FilteredList<App_form> filteredData = new FilteredList<>(dataBase.getApp_form(), p -> true);
+        tableView.setItems(filteredData);
+
+        setData();
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(appForm -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (appForm.getEquipments().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getType_of_fault().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getDate_create().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getDescription().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getStatus_app().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getComments().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getPriority().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getId().toLowerCase().contains(lowerCaseFilter) ||
+                        appForm.getUser_id().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+                return false;
+            });
+        });
+
+        updateLabel.setOnMouseClicked(e -> {
+            tableView.setItems(dataBase.getApp_form());
+        });
+        statsLabel.setOnMouseClicked(e -> {
+            new App().openNewScene(rootPane, "/ru/sl1degod/demoexamen/worker-stats.fxml", "Статистика");
+        });
+    }
+    private void setData() {
+
 
         if (State.getInstance().getRole().equals("Сотрудник")) {
             tableView.setOnMouseClicked(e -> {
@@ -125,7 +164,7 @@ public class MainWorker {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ru/sl1degod/demoexamen/repair-update.fxml"));
                             Parent parent = loader.load();
                             RepairUpdate repairUpdate = loader.getController();
-                            repairUpdate.setData(appForm.getId());
+                            repairUpdate.setData(appForm.getId(), appForm.getUser_id());
                             System.out.println(appForm.getId());
                             Stage stage = new Stage();
                             stage.initModality(Modality.APPLICATION_MODAL);

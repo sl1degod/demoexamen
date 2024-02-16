@@ -1,8 +1,12 @@
 package ru.sl1degod.demoexamen.controllers;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,6 +57,7 @@ public class UserAppFormView {
 
     @FXML
     void initialize() {
+        String loginedUser = State.getInstance().getUser_id();
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnEquip.setCellValueFactory(new PropertyValueFactory<>("equipments"));
         columnCause.setCellValueFactory(new PropertyValueFactory<>("type_of_fault"));
@@ -62,6 +67,18 @@ public class UserAppFormView {
         columnComments.setCellValueFactory(new PropertyValueFactory<>("comments"));
         columnPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
         tableView.setItems(dataBase.getUserApp_form(State.getInstance().getUser_id()));
+        dataBase.getRepairUsers(loginedUser);
+        ObservableList<String> users = State.getInstance().getRepair_user_id();
+        ObservableList<String> app_forms = State.getInstance().getApp_form_ids();
+        for (int i = 0; i < users.size(); i++) {
+            if (Objects.equals(users.get(i), loginedUser)) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Уведомление");
+                alert.setHeaderText("Ваш ремонт в заявке №" + Integer.parseInt(app_forms.get(i)) + " был завершен.");
+                alert.showAndWait();
+            }
+        }
+
     }
 
 }

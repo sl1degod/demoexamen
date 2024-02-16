@@ -97,6 +97,24 @@ public class DataBase {
         }
     }
 
+    public void getRepairUsers(String id) {
+        ObservableList<String> repairUsers = FXCollections.observableArrayList();
+        ObservableList<String> repairApp_form = FXCollections.observableArrayList();
+        try {
+            String query = String.format("select app_form.id, app_form.users_id from app_form join repair on repair.app_id = app_form.id where repair.status_repair_id = 1 and app_form.users_id = '%s'", id);
+            Statement statement = connect_to_db().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                repairApp_form.add(resultSet.getString("id"));
+                repairUsers.add(resultSet.getString("users_id"));
+            }
+            State.getInstance().setRepair_user_id(repairUsers);
+            State.getInstance().setApp_form_ids(repairApp_form);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void getStatusRepairData() {
         ObservableList<String> status_repair = FXCollections.observableArrayList();
         try {

@@ -15,6 +15,8 @@ public class State {
 
     public String selectedMaterial;
     public String countMaterial;
+    public ObservableList<String> repair_user_id;
+    public ObservableList<String> app_form_ids;
     public ObservableList<String> admins;
     public ObservableList<String> status_app_form;
     public ObservableList<String> status_repair;
@@ -24,6 +26,22 @@ public class State {
     public ObservableList<String> faultNames;
     public ObservableList<String> users;
     public ObservableList<String> causes;
+
+    public ObservableList<String> getApp_form_ids() {
+        return app_form_ids;
+    }
+
+    public void setApp_form_ids(ObservableList<String> app_form_ids) {
+        this.app_form_ids = app_form_ids;
+    }
+
+    public ObservableList<String> getRepair_user_id() {
+        return repair_user_id;
+    }
+
+    public void setRepair_user_id(ObservableList<String> repair_user_id) {
+        this.repair_user_id = repair_user_id;
+    }
 
     public String getApp_form_id() {
         return app_form_id;

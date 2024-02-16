@@ -96,8 +96,9 @@ public class RepairUpdate {
         });
     }
 
-    public void setData(String app_form_id) {
+    public void setData(String app_form_id, String user_id) {
         form_id = app_form_id;
+
     }
 }
 

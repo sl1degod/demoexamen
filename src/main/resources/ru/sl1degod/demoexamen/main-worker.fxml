@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -28,5 +29,6 @@
       <Label fx:id="statsLabel" layoutX="726.0" layoutY="39.0" text="Статистика" underline="true" />
       <Label fx:id="startRepairLabel" layoutX="803.0" layoutY="39.0" text="Начать ремонт" underline="true" />
       <Label fx:id="updateLabel" layoutX="658.0" layoutY="39.0" text="Обновить" underline="true" />
+      <TextField fx:id="searchTextField" layoutX="50.0" layoutY="30.0" />
     </children>
 </AnchorPane>

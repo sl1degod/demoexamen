@@ -7,6 +7,11 @@ TextField {
     -fx-text-fill: black;
 }
 
+#searchTextField {
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+}
+
 TextField:focused {
     -fx-border-color: #827ffe;
 }
